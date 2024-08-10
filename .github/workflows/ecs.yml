@@ -41,12 +41,13 @@ jobs:
       - name: UPSERT Entity
         uses: port-labs/port-github-action@v1
         with:
-          identifier: "cluster-name ${{  github.event.inputs.cluster_name }}"
+          identifier: ${{ fromJson(inputs.port_context).entity }}
           blueprint: service
-          # properties: |-
-          #   {
-          #     "resource_definitions": "${{ github.server_url }}/${{ github.repository_owner }}/${{ fromJson(inputs.port_context).entity }}/blob/main/resources/"
-          #   }
+          properties: |-
+            {
+              "title": "Cluster_Name_{{ github.event.inputs.cluster_name }}",
+              "resource_definitions": "${{ github.server_url }}/${{ github.repository_owner }}/${{ fromJson(inputs.port_context).entity }}/blob/main/resources/"
+            }
           clientId: ${{ secrets.PORT_CLIENT_ID }}
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           baseUrl: https://api.getport.io
