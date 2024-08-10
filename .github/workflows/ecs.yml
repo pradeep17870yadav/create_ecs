@@ -37,6 +37,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+
+      - name: UPSERT Entity
+        uses: port-labs/port-github-action@v1
+        with:
+          identifier: ${{ fromJson(inputs.port_context).entity }}
+          blueprint: service
+          properties: |-
+            {
+              "resource_definitions": "${{ github.server_url }}/${{ github.repository_owner }}/${{ fromJson(inputs.port_context).entity }}/blob/main/resources/"
+            }
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.getport.io
+          operation: UPSERT
+          runId: ${{ fromJson(inputs.port_context).runId }}
+
       - name: Create a log message (apply)
         if: ${{ github.event.inputs.action == 'apply' }}
         uses: port-labs/port-github-action@v1
