@@ -41,7 +41,7 @@ jobs:
       - name: UPSERT Entity
         uses: port-labs/port-github-action@v1
         with:
-          identifier: ${{ fromJson(inputs.port_context).entity }}
+          identifier: "cluster-name ${{  github.event.inputs.cluster_name }}"
           blueprint: service
           # properties: |-
           #   {
