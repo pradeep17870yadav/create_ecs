@@ -46,6 +46,8 @@ jobs:
           properties: |-
             {
               "title": "Cluster_Name_{{ github.event.inputs.cluster_name }}",
+              "Title": "Cluster_Name_{{ github.event.inputs.cluster_name }}",
+              "Identifier": "Cluster_Name_{{ github.event.inputs.cluster_name }}",
               "resource_definitions": "${{ github.server_url }}/${{ github.repository_owner }}/${{ fromJson(inputs.port_context).entity }}/blob/main/resources/"
             }
           clientId: ${{ secrets.PORT_CLIENT_ID }}
